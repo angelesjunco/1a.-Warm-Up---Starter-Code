@@ -1,0 +1,5 @@
+/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/rebuild_cache.dir
+/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/edit_cache.dir
+/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/test.dir
+/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/orbitalsim.dir
+/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/orbitalsim_test.dir

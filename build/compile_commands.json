@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/angeles/Downloads/1a. Warm Up - Starter Code/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7   -isystem /home/angeles/dev/vcpkg/installed/x64-linux/include  -g   -I/home/angeles/dev/vcpkg/installed/x64-linux/debug/lib/pkgconfig/../../../include -o CMakeFiles/orbitalsim.dir/main.cpp.o -c \"/home/angeles/Downloads/1a. Warm Up - Starter Code/main.cpp\"",
+  "file": "/home/angeles/Downloads/1a. Warm Up - Starter Code/main.cpp"
+},
+{
+  "directory": "/home/angeles/Downloads/1a. Warm Up - Starter Code/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7   -isystem /home/angeles/dev/vcpkg/installed/x64-linux/include  -g   -I/home/angeles/dev/vcpkg/installed/x64-linux/debug/lib/pkgconfig/../../../include -o CMakeFiles/orbitalsim.dir/orbitalSim.cpp.o -c \"/home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSim.cpp\"",
+  "file": "/home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSim.cpp"
+},
+{
+  "directory": "/home/angeles/Downloads/1a. Warm Up - Starter Code/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7   -isystem /home/angeles/dev/vcpkg/installed/x64-linux/include  -g   -I/home/angeles/dev/vcpkg/installed/x64-linux/debug/lib/pkgconfig/../../../include -o CMakeFiles/orbitalsim.dir/orbitalSimView.cpp.o -c \"/home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSimView.cpp\"",
+  "file": "/home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSimView.cpp"
+},
+{
+  "directory": "/home/angeles/Downloads/1a. Warm Up - Starter Code/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7   -isystem /home/angeles/dev/vcpkg/installed/x64-linux/include  -g   -I/home/angeles/dev/vcpkg/installed/x64-linux/debug/lib/pkgconfig/../../../include -o CMakeFiles/orbitalsim_test.dir/main_test.cpp.o -c \"/home/angeles/Downloads/1a. Warm Up - Starter Code/main_test.cpp\"",
+  "file": "/home/angeles/Downloads/1a. Warm Up - Starter Code/main_test.cpp"
+},
+{
+  "directory": "/home/angeles/Downloads/1a. Warm Up - Starter Code/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7   -isystem /home/angeles/dev/vcpkg/installed/x64-linux/include  -g   -I/home/angeles/dev/vcpkg/installed/x64-linux/debug/lib/pkgconfig/../../../include -o CMakeFiles/orbitalsim_test.dir/orbitalSim.cpp.o -c \"/home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSim.cpp\"",
+  "file": "/home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSim.cpp"
+}
+]
