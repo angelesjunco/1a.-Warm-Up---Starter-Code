@@ -10,6 +10,10 @@
 
 #include "raylib.h"
 #include "raymath.h"
+#include "stdlib.h"
+#include "math.h"
+
+#define M_PI PI
 
 struct OrbitalBody
 {
