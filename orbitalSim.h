@@ -8,12 +8,14 @@
 #ifndef ORBITALSIM_H
 #define ORBITALSIM_H
 
+#define _USE_MATH_DEFINES  /* Enable M_PI definition */
+
+#include <stdlib.h>        /* rand() */
+#include <math.h>          /* M_PI */
+
 #include "raylib.h"
 #include "raymath.h"
-#include "stdlib.h"
-#include "math.h"
 
-// #define M_PI PI
 
 struct OrbitalBody
 {
