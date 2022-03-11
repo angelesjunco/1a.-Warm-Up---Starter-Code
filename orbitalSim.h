@@ -13,7 +13,7 @@
 #include "stdlib.h"
 #include "math.h"
 
-#define M_PI PI
+// #define M_PI PI
 
 struct OrbitalBody
 {
