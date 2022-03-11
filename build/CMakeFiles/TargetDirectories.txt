@@ -1,5 +1,5 @@
-/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/rebuild_cache.dir
-/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/edit_cache.dir
-/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/test.dir
-/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/orbitalsim.dir
-/home/angeles/Downloads/1a. Warm Up - Starter Code/build/CMakeFiles/orbitalsim_test.dir
+C:/Users/santi/OneDrive/Documentos/1a.-Warm-Up---Starter-Code/1a.-Warm-Up---Starter-Code/build/CMakeFiles/orbitalsim.dir
+C:/Users/santi/OneDrive/Documentos/1a.-Warm-Up---Starter-Code/1a.-Warm-Up---Starter-Code/build/CMakeFiles/orbitalsim_test.dir
+C:/Users/santi/OneDrive/Documentos/1a.-Warm-Up---Starter-Code/1a.-Warm-Up---Starter-Code/build/CMakeFiles/RUN_TESTS.dir
+C:/Users/santi/OneDrive/Documentos/1a.-Warm-Up---Starter-Code/1a.-Warm-Up---Starter-Code/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/santi/OneDrive/Documentos/1a.-Warm-Up---Starter-Code/1a.-Warm-Up---Starter-Code/build/CMakeFiles/ZERO_CHECK.dir
