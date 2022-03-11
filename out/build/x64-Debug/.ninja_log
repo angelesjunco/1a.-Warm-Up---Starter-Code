@@ -1,7 +1,0 @@
-# ninja log v5
-3	125	6684899518647683	CMakeFiles/orbitalsim.dir/main.cpp.obj	9bfb258702b3c4fa
-6	131	6684899518803862	CMakeFiles/orbitalsim.dir/orbitalSimView.cpp.obj	946b3c620d6c499b
-0	126	6684899902796204	CMakeFiles/orbitalsim.dir/main.cpp.obj	9bfb258702b3c4fa
-3	131	6684899902952457	CMakeFiles/orbitalsim.dir/orbitalSim.cpp.obj	67e2fc7e16c14ff6
-6	135	6684899902952457	CMakeFiles/orbitalsim.dir/orbitalSimView.cpp.obj	946b3c620d6c499b
-135	3505	6684899908745599	orbitalsim.exe	568b4d59e881b741
