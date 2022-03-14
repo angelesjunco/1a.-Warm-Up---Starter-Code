@@ -16,17 +16,26 @@
 #include "raylib.h"
 #include "raymath.h"
 
+#define G 6.6743*(pow(10,-11))
 
-
-struct OrbitalBody
+typedef struct OrbitalBody
 {
-    // Your code goes here...
-};
+    const char *name; // Name
+    float mass;		  // [kg]
+    float radius;	  // [m]
+    Color color;	  // raylib color
+    Vector3 position; // [m]
+    Vector3 velocity; // [m/s]
+    Vector3 acceleration;
+} orbitalbody_t;
 
-struct OrbitalSim
+typedef struct OrbitalSim
 {
-    // Your code goes here...
-};
+    float timeStep;
+    float timeElapsed;
+    int numberOfBodies;
+    OrbitalBody* p;
+} orbitalsim_t;
 
 OrbitalSim *makeOrbitalSim(float timeStep);
 void updateOrbitalSim(OrbitalSim *sim);

@@ -4,7 +4,7 @@
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  */
-
+#include "stdio.h"
 #include <time.h>
 
 #include "orbitalSimView.h"
@@ -24,10 +24,15 @@ const char* getISODate(float currentTime) {
 
 void renderOrbitalSim3D(OrbitalSim *sim)
 {
-    // Your code goes here...
+    for(size_t i=0;i<9;++i)
+    {
+        Vector3 scaledPos=Vector3Scale(sim->p[i].position, pow(10,-11));
+        DrawSphere(scaledPos, 0.005F*logf(sim->p[i].radius), sim->p[i].color);
+        DrawPoint3D(scaledPos, sim->p[i].color);
+    }
 }
 
 void renderOrbitalSim2D(OrbitalSim *sim)
 {
-    // Your code goes here...
+    DrawFPS(40,40);
 }

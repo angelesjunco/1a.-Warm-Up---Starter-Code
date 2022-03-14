@@ -48,18 +48,69 @@ void placeAsteroid(OrbitalBody *body, float centerMass)
 // Make an orbital simulation
 OrbitalSim *makeOrbitalSim(float timeStep)
 {
-    // Your code goes here...
-
-    return NULL; // Replace...
+    orbitalsim_t *sim = (orbitalsim_t*) malloc(sizeof(orbitalsim_t));
+    if(sim==NULL)
+    {
+        return NULL;
+    }
+    sim->p= (orbitalbody_t*) malloc(sizeof(orbitalbody_t)*9);
+    if(sim->p==NULL)
+    {
+        free(sim);
+        return NULL;
+    }
+    sim->timeStep=timeStep;
+    sim->timeElapsed=0;
+    sim->numberOfBodies=9;
+    int i;
+    for(i=0;i<9;++i)
+    {
+        (*sim).p[i].name= (solarSystem[i]).name;
+        (*sim).p[i].mass= (solarSystem[i]).mass;
+        (*sim).p[i].radius= (solarSystem[i]).radius;
+        (*sim).p[i].color= (solarSystem[i]).color;
+        (*sim).p[i].position= (solarSystem[i]).position;
+        (*sim).p[i].velocity= (solarSystem[i]).velocity;
+    }
+    return sim;
 }
 
 // Simulates a timestep
 void updateOrbitalSim(OrbitalSim *sim)
 {
-    // Your code goes here...
+    int i, j;
+    for(i=0;i<9;++i)
+    {
+        Vector3 resultantForce;
+        resultantForce.x=0;
+        resultantForce.y=0;
+        resultantForce.z=0;
+
+        for(j=0;j<9;++j)
+        {
+            if(i==j) 
+            {
+                continue;
+            }
+            Vector3 x=Vector3Subtract( sim->p[i].position ,sim->p[j].position);
+            float mod = Vector3Length(x);
+            x=Vector3Scale(x,1/mod);
+
+            Vector3 f=Vector3Scale(x,-G*(sim->p[i].mass)*(sim->p[j].mass)/(mod*mod));
+            resultantForce=Vector3Add(resultantForce,f);
+        }
+
+        Vector3 acc;
+        acc=Vector3Scale(resultantForce, 1/(sim->p[i].mass));
+
+        sim->p[i].velocity= Vector3Add(sim->p[i].velocity, Vector3Scale(acc,(sim->timeStep)));
+        sim->p[i].position= Vector3Add(sim->p[i].position, Vector3Scale((sim->p[i].velocity),(sim->timeStep)));
+
+    }
 }
 
 void freeOrbitalSim(OrbitalSim *sim)
 {
-    // Your code goes here...
+    free(sim->p);
+    free(sim);
 }
