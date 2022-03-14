@@ -4,7 +4,7 @@
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  */
-#include "stdio.h"
+
 #include <time.h>
 
 #include "orbitalSimView.h"
