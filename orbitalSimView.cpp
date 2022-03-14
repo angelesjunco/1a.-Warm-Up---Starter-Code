@@ -34,5 +34,6 @@ void renderOrbitalSim3D(OrbitalSim *sim)
 
 void renderOrbitalSim2D(OrbitalSim *sim)
 {
-    DrawFPS(40,40);
+    DrawFPS(5,0);
+    DrawText(getISODate(sim->timeElapsed), 5, 25, 20, WHITE); 
 }

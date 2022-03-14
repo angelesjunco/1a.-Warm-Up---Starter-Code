@@ -21,14 +21,14 @@ ephemerides.h
 /home/angeles/Downloads/1a. Warm Up - Starter Code/ephemerides.h
 
 /home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSim.h
+stdlib.h
+-
+math.h
+-
 raylib.h
 /home/angeles/Downloads/1a. Warm Up - Starter Code/raylib.h
 raymath.h
 /home/angeles/Downloads/1a. Warm Up - Starter Code/raymath.h
-stdlib.h
-/home/angeles/Downloads/1a. Warm Up - Starter Code/stdlib.h
-math.h
-/home/angeles/Downloads/1a. Warm Up - Starter Code/math.h
 
 /home/angeles/Downloads/1a. Warm Up - Starter Code/orbitalSimView.cpp
 time.h
