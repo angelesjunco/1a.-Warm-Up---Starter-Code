@@ -18,6 +18,8 @@
 
 #define G 6.6743*(pow(10,-11))
 
+#define N_ASTEROID 1000
+
 typedef struct OrbitalBody
 {
     const char *name; // Name

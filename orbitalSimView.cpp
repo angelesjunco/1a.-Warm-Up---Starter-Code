@@ -24,11 +24,16 @@ const char* getISODate(float currentTime) {
 
 void renderOrbitalSim3D(OrbitalSim *sim)
 {
-    for(size_t i=0;i<9;++i)
+    for(size_t i=0;i<(sim->numberOfBodies-N_ASTEROID);++i)
     {
         Vector3 scaledPos=Vector3Scale(sim->p[i].position, pow(10,-11));
         DrawSphere(scaledPos, 0.005F*logf(sim->p[i].radius), sim->p[i].color);
         DrawPoint3D(scaledPos, sim->p[i].color);
+    }
+    for (int x=(sim->numberOfBodies-N_ASTEROID);x<(sim->numberOfBodies);++x)
+    {
+        Vector3 scaledPos=Vector3Scale(sim->p[x].position, pow(10,-11));
+        DrawPoint3D(scaledPos, sim->p[x].color);
     }
 }
 
