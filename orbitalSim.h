@@ -18,7 +18,7 @@
 
 #define G 6.6743*(pow(10,-11))
 
-#define N_ASTEROID 1000
+#define N_ASTEROID 20000
 
 typedef struct OrbitalBody
 {

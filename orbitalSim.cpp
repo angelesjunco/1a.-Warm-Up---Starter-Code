@@ -5,6 +5,8 @@
  * Copyright (C) 2022 Marc S. Ressl
  * 
  * GRUPO 3 
+ * Santiago Feldman 
+ * 
  */
 
 #include "orbitalSim.h"
@@ -65,7 +67,7 @@ OrbitalSim *makeOrbitalSim(float timeStep)
     sim->timeStep=timeStep;
     sim->timeElapsed=0;
     sim->numberOfBodies=SOLARSYSTEM_BODYNUM+N_ASTEROID;
-    for(int i=0; i<SOLARSYSTEM_BODYNUM; ++i)
+    for(int i=0; i<SOLARSYSTEM_BODYNUM;++i)
     {
         (*sim).p[i].name= (solarSystem[i]).name;
         (*sim).p[i].mass= (solarSystem[i]).mass;
@@ -74,7 +76,7 @@ OrbitalSim *makeOrbitalSim(float timeStep)
         (*sim).p[i].position= (solarSystem[i]).position;
         (*sim).p[i].velocity= (solarSystem[i]).velocity;
     }
-    for (int x=SOLARSYSTEM_BODYNUM; x<(sim->numberOfBodies); ++x)
+    for (int x=SOLARSYSTEM_BODYNUM;x<(sim->numberOfBodies);++x)
     {
         placeAsteroid(&sim->p[x], sim->p[0].mass);
     }
