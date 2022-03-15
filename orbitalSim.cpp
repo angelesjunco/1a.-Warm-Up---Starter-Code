@@ -6,14 +6,26 @@
  * 
  * GRUPO 3 
  * Santiago Feldman 
+ * Angeles Junco
+ * 
+ * PASOS SIGUIENTES
+ * 
+ * 1. Utilizamos float para representar las masas, velocidades, aceleraciones y distancias porque estas magnitudes físicas
+ * toman valores continuos de los números reales. Float nos permite simular correctamente esa continuidad. Int, por ejemplo, 
+ * hubiera tomado valores discretos para las magnitudes. Además utilizamos float y no double, que también permite simular
+ * números reales, porque la precisión de float era la suficiente como para crear una simulación "convincente".
+ * 
+ * 3. La complejidad algorítmica de la simulación es O(n^2) debido a los "for" anidados de las líneas 106 y 113 (en este archivo),
+ * que son la "estructura" más compleja del programa.
  * 
  */
 
 #include "orbitalSim.h"
 #include "ephemerides.h"
 
-#define GRAVITATIONAL_CONSTANT 6.6743E-11F
+#define GRAVITATIONAL_CONSTANT 6.6743*(pow(10,-11))
 #define ASTEROIDS_MEAN_RADIUS 4E11F
+#define ASTEROIDS_MEAN_WEIGHT 0X3B9ACA00
 
 // Gets a random value between min and max
 float getRandomFloat(float min, float max)
@@ -42,8 +54,8 @@ void placeAsteroid(OrbitalBody *body, float centerMass)
     float vy = getRandomFloat(-1E2F, 1E2F);
 
     // Fill in with your own fields:
-    body->mass = 0X3B9ACA00;  // Typical asteroid weight: 1 billion tons
-    body->radius = 0X7D0; // Typical asteroid radius: 2km
+    body->mass = ASTEROIDS_MEAN_WEIGHT;  // Typical asteroid weight: 1 billion tons
+    body->radius = ASTEROIDS_MEAN_RADIUS; // Typical asteroid radius: 2km
     body->color = GRAY;
     body->position = {r * cosf(phi), 0, r * sinf(phi)};
     body->velocity = {-v * sinf(phi), vy, v * cosf(phi)};
@@ -53,32 +65,35 @@ void placeAsteroid(OrbitalBody *body, float centerMass)
 // Make an orbital simulation
 OrbitalSim *makeOrbitalSim(float timeStep)
 {
+    // Memory allocation
     orbitalsim_t *sim = (orbitalsim_t*) malloc(sizeof(orbitalsim_t));
     if(sim==NULL)
     {
         return NULL;
     }
-    sim->p= (orbitalbody_t*) malloc(sizeof(orbitalbody_t)*(SOLARSYSTEM_BODYNUM+N_ASTEROID));
-    if(sim->p==NULL)
+    sim->bodies= (orbitalbody_t*) malloc(sizeof(orbitalbody_t)*(SOLARSYSTEM_BODYNUM+N_ASTEROID));
+    if(sim->bodies==NULL)
     {
         free(sim);
         return NULL;
     }
+
+    // Information allocation
     sim->timeStep=timeStep;
     sim->timeElapsed=0;
     sim->numberOfBodies=SOLARSYSTEM_BODYNUM+N_ASTEROID;
-    for(int i=0; i<SOLARSYSTEM_BODYNUM;++i)
+    for(size_t i=0 ; i<SOLARSYSTEM_BODYNUM ; ++i)
     {
-        (*sim).p[i].name= (solarSystem[i]).name;
-        (*sim).p[i].mass= (solarSystem[i]).mass;
-        (*sim).p[i].radius= (solarSystem[i]).radius;
-        (*sim).p[i].color= (solarSystem[i]).color;
-        (*sim).p[i].position= (solarSystem[i]).position;
-        (*sim).p[i].velocity= (solarSystem[i]).velocity;
+        (*sim).bodies[i].name= (solarSystem[i]).name;
+        (*sim).bodies[i].mass= (solarSystem[i]).mass;
+        (*sim).bodies[i].radius= (solarSystem[i]).radius;
+        (*sim).bodies[i].color= (solarSystem[i]).color;
+        (*sim).bodies[i].position= (solarSystem[i]).position;
+        (*sim).bodies[i].velocity= (solarSystem[i]).velocity;
     }
-    for (int x=SOLARSYSTEM_BODYNUM;x<(sim->numberOfBodies);++x)
+    for(size_t j=SOLARSYSTEM_BODYNUM ; j<(sim->numberOfBodies) ; ++j)
     {
-        placeAsteroid(&sim->p[x], sim->p[0].mass);
+        placeAsteroid(&sim->bodies[j], sim->bodies[0].mass);
     }
 
     return sim;
@@ -87,37 +102,42 @@ OrbitalSim *makeOrbitalSim(float timeStep)
 // Simulates a timestep
 void updateOrbitalSim(OrbitalSim *sim)
 {
-    for(int i=0;i<(SOLARSYSTEM_BODYNUM+N_ASTEROID);++i)
+    // Calculation of force and acceleration
+    for(size_t i=0 ; i<(SOLARSYSTEM_BODYNUM+N_ASTEROID) ; ++i)
     {
         Vector3 resultantForce;
         resultantForce.x=0;
         resultantForce.y=0;
         resultantForce.z=0;
 
-        for(int j=0;j<SOLARSYSTEM_BODYNUM;++j)
+        for(size_t j=0;j<SOLARSYSTEM_BODYNUM;++j)
         {
             if(i!=j) 
             {
-                Vector3 x=Vector3Subtract( sim->p[i].position ,sim->p[j].position);
-                float mod = Vector3Length(x);
-                x=Vector3Scale(x,1/mod);
+                Vector3 unitVector=Vector3Subtract( sim->bodies[i].position ,sim->bodies[j].position);
+                float vectorMod = Vector3Length(unitVector);
+                unitVector=Vector3Scale(unitVector,1/vectorMod);
 
-                Vector3 f=Vector3Scale(x,-G*(sim->p[i].mass)*(sim->p[j].mass)/(mod*mod));
-                resultantForce=Vector3Add(resultantForce,f);
+                Vector3 force=Vector3Scale(unitVector,
+                              -GRAVITATIONAL_CONSTANT*(sim->bodies[i].mass)*(sim->bodies[j].mass)/(vectorMod*vectorMod));
+                resultantForce=Vector3Add(resultantForce,force);
             }
         }
 
-        Vector3 acc;
-        acc=Vector3Scale(resultantForce, 1/(sim->p[i].mass));
+        Vector3 acceleration;
+        acceleration=Vector3Scale(resultantForce, 1/(sim->bodies[i].mass));
 
-        sim->p[i].velocity= Vector3Add(sim->p[i].velocity, Vector3Scale(acc,(sim->timeStep)));
-        sim->p[i].position= Vector3Add(sim->p[i].position, Vector3Scale((sim->p[i].velocity),(sim->timeStep)));
+        sim->bodies[i].velocity= Vector3Add(sim->bodies[i].velocity, 
+                                 Vector3Scale(acceleration,(sim->timeStep)));
+        sim->bodies[i].position= Vector3Add(sim->bodies[i].position, 
+                                 Vector3Scale((sim->bodies[i].velocity),(sim->timeStep)));
     }
-    (sim->timeElapsed)+=(sim->timeStep);
+
+    (sim->timeElapsed)+=(sim->timeStep);    // Time update
 }
 
 void freeOrbitalSim(OrbitalSim *sim)
 {
-    free(sim->p);
+    free(sim->bodies);
     free(sim);
 }

@@ -16,9 +16,7 @@
 #include "raylib.h"
 #include "raymath.h"
 
-#define G 6.6743*(pow(10,-11))
-
-#define N_ASTEROID 20000
+#define N_ASTEROID 1000
 
 typedef struct OrbitalBody
 {
@@ -36,7 +34,7 @@ typedef struct OrbitalSim
     float timeStep;
     float timeElapsed;
     int numberOfBodies;
-    OrbitalBody* p;
+    OrbitalBody* bodies;
 } orbitalsim_t;
 
 OrbitalSim *makeOrbitalSim(float timeStep);

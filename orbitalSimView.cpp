@@ -9,6 +9,8 @@
 
 #include "orbitalSimView.h"
 
+#define SCALE pow(10,-11)
+
 const char* getISODate(float currentTime) {
     // Epoch: 2022-01-01
     struct tm epoch_tm = { 0, 0, 0, 1, 0, 122 };
@@ -24,16 +26,16 @@ const char* getISODate(float currentTime) {
 
 void renderOrbitalSim3D(OrbitalSim *sim)
 {
-    for(size_t i=0;i<(sim->numberOfBodies-N_ASTEROID);++i)
+    for(size_t i=0 ; i<(sim->numberOfBodies-N_ASTEROID) ; ++i)
     {
-        Vector3 scaledPos=Vector3Scale(sim->p[i].position, pow(10,-11));
-        DrawSphere(scaledPos, 0.005F*logf(sim->p[i].radius), sim->p[i].color);
-        DrawPoint3D(scaledPos, sim->p[i].color);
+        Vector3 scaledPos=Vector3Scale(sim->bodies[i].position, SCALE);
+        DrawSphere(scaledPos, 0.005F*logf(sim->bodies[i].radius), sim->bodies[i].color);
+        DrawPoint3D(scaledPos, sim->bodies[i].color);
     }
-    for (int x=(sim->numberOfBodies-N_ASTEROID);x<(sim->numberOfBodies);++x)
+    for (size_t x=(sim->numberOfBodies-N_ASTEROID) ; x<(sim->numberOfBodies) ; ++x)
     {
-        Vector3 scaledPos=Vector3Scale(sim->p[x].position, pow(10,-11));
-        DrawPoint3D(scaledPos, sim->p[x].color);
+        Vector3 scaledPos=Vector3Scale(sim->bodies[x].position, SCALE);
+        DrawPoint3D(scaledPos, sim->bodies[x].color);
     }
 }
 
