@@ -22,7 +22,7 @@
 
 #include "orbitalSim.h"
 #include "ephemerides.h"
-hola como ests 
+
 #define GRAVITATIONAL_CONSTANT 6.6743*(pow(10,-11))
 #define ASTEROIDS_MEAN_RADIUS 4E11F
 #define ASTEROIDS_MEAN_WEIGHT 0X3B9ACA00
