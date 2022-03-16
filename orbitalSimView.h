@@ -10,7 +10,14 @@
 
 #include "orbitalSim.h"
 
-void renderOrbitalSim3D(OrbitalSim *sim);
-void renderOrbitalSim2D(OrbitalSim *sim);
+class OrbitalView
+{
+public:
+    void renderOrbitalSim3D(OrbitalSim *sim);
+    void renderOrbitalSim2D(OrbitalSim *sim);
+
+private:
+    const char* getISODate(float currentTime);
+};
 
 #endif

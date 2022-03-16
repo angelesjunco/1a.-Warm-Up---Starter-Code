@@ -27,8 +27,20 @@
 #define ASTEROIDS_MEAN_RADIUS 4E11F
 #define ASTEROIDS_MEAN_WEIGHT 0X3B9ACA00
 
+OrbitalSim::OrbitalSim(float timeStep)
+{
+    this->timeStep=timeStep;
+    timeElapsed=0;
+    numberOfBodies=SOLARSYSTEM_BODYNUM+N_ASTEROID;
+
+    bodies = new OrbitalBody[SOLARSYSTEM_BODYNUM+N_ASTEROID]; 
+
+
+
+}
+
 // Gets a random value between min and max
-float getRandomFloat(float min, float max)
+float OrbitalSim::getRandomFloat(float min, float max)
 {
     return min + (max - min) * rand() / (float)RAND_MAX;
 }
@@ -36,7 +48,7 @@ float getRandomFloat(float min, float max)
 // Places an asteroid
 //
 // centerMass: mass of the most massive object in the star system
-void placeAsteroid(OrbitalBody *body, float centerMass)
+void OrbitalSim::placeAsteroid(OrbitalBody body, float centerMass)
 {
     // Logit distribution
     float x = getRandomFloat(0, 1);
@@ -54,53 +66,44 @@ void placeAsteroid(OrbitalBody *body, float centerMass)
     float vy = getRandomFloat(-1E2F, 1E2F);
 
     // Fill in with your own fields:
-    body->mass = ASTEROIDS_MEAN_WEIGHT;  // Typical asteroid weight: 1 billion tons
-    body->radius = ASTEROIDS_MEAN_RADIUS; // Typical asteroid radius: 2km
-    body->color = GRAY;
-    body->position = {r * cosf(phi), 0, r * sinf(phi)};
-    body->velocity = {-v * sinf(phi), vy, v * cosf(phi)};
+    body.mass = ASTEROIDS_MEAN_WEIGHT;  // Typical asteroid weight: 1 billion tons
+    body.radius = ASTEROIDS_MEAN_RADIUS; // Typical asteroid radius: 2km
+    body.color = GRAY;
+    body.position = {r * cosf(phi), 0, r * sinf(phi)};
+    body.velocity = {-v * sinf(phi), vy, v * cosf(phi)};
 
 }
 
 // Make an orbital simulation
-OrbitalSim *makeOrbitalSim(float timeStep)
+OrbitalSim* OrbitalSim::makeOrbitalSim(float timeStep)
 {
-    // Memory allocation
-    orbitalsim_t *sim = (orbitalsim_t*) malloc(sizeof(orbitalsim_t));
-    if(sim==NULL)
-    {
-        return NULL;
-    }
-    sim->bodies= (orbitalbody_t*) malloc(sizeof(orbitalbody_t)*(SOLARSYSTEM_BODYNUM+N_ASTEROID));
-    if(sim->bodies==NULL)
-    {
-        free(sim);
-        return NULL;
-    }
 
-    // Information allocation
-    sim->timeStep=timeStep;
-    sim->timeElapsed=0;
-    sim->numberOfBodies=SOLARSYSTEM_BODYNUM+N_ASTEROID;
     for(size_t i=0 ; i<SOLARSYSTEM_BODYNUM ; ++i)
     {
-        (*sim).bodies[i].name= (solarSystem[i]).name;
-        (*sim).bodies[i].mass= (solarSystem[i]).mass;
-        (*sim).bodies[i].radius= (solarSystem[i]).radius;
-        (*sim).bodies[i].color= (solarSystem[i]).color;
-        (*sim).bodies[i].position= (solarSystem[i]).position;
-        (*sim).bodies[i].velocity= (solarSystem[i]).velocity;
+        bodies[i].setName()
+
+        setName()
+        {
+            
+        }
+        
+        solarSystem[i].name;
+        bodies[i].mass=solarSystem[i].mass;
+        bodies[i].radius=solarSystem[i].radius;
+        bodies[i].color=solarSystem[i].color;
+        bodies[i].position=solarSystem[i].position;
+        bodies[i].velocity=solarSystem[i].velocity;
     }
-    for(size_t j=SOLARSYSTEM_BODYNUM ; j<(sim->numberOfBodies) ; ++j)
+    for(size_t j=SOLARSYSTEM_BODYNUM ; j<numberOfBodies ; ++j)
     {
-        placeAsteroid(&sim->bodies[j], sim->bodies[0].mass);
+        this->placeAsteroid(bodies[j], bodies[0].mass);
     }
 
     return sim;
 }
 
 // Simulates a timestep
-void updateOrbitalSim(OrbitalSim *sim)
+void OrbitalSim::updateOrbitalSim(OrbitalSim *sim)
 {
     // Calculation of force and acceleration
     for(size_t i=0 ; i<(SOLARSYSTEM_BODYNUM+N_ASTEROID) ; ++i)
@@ -138,6 +141,5 @@ void updateOrbitalSim(OrbitalSim *sim)
 
 void freeOrbitalSim(OrbitalSim *sim)
 {
-    free(sim->bodies);
-    free(sim);
+    delete sim; 
 }
