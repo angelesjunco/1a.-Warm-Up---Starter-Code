@@ -110,7 +110,7 @@ float OrbitalSim::getTimeElapsed()
 // centerMass: mass of the most massive object in the star system
 void OrbitalSim::placeAsteroid(OrbitalBody body, float centerMass)
 {
-    /*// Logit distribution
+    // Logit distribution
     float x = getRandomFloat(0, 1);
     float l = logf(x) - logf(1 - x) + 1;
 
@@ -130,35 +130,13 @@ void OrbitalSim::placeAsteroid(OrbitalBody body, float centerMass)
     body.setRadius(ASTEROIDS_MEAN_RADIUS); // Typical asteroid radius: 2km
     body.setColor(GRAY);
     body.setPosition ({r * cosf(phi), 0, r * sinf(phi)});
-    body.setVelocity ({-v * sinf(phi), vy, v * cosf(phi)});*/
+    body.setVelocity ({-v * sinf(phi), vy, v * cosf(phi)});
 
-    // Logit distribution
-    float x = getRandomFloat(0, 1);
-    float l = logf(x) - logf(1 - x) + 1;
-
-    // https://mathworld.wolfram.com/DiskPointPicking.html
-    float r = ASTEROIDS_MEAN_RADIUS * sqrtf(fabs(l));
-    float phi = getRandomFloat(0, 2 * M_PI);
-
-    // Surprise!
-    phi = 0;
-
-    // https://en.wikipedia.org/wiki/Circular_orbit#Velocity
-    float v = sqrtf(GRAVITATIONAL_CONSTANT * centerMass / r) * getRandomFloat(0.6F, 1.2F);
-    float vy = getRandomFloat(-1E2F, 1E2F);
-
-    // Fill in with your own fields:
-    body.setMass(1E12F);  // Typical asteroid weight: 1 billion tons
-    body.setRadius(2E3F); // Typical asteroid radius: 2km
-    body.setColor(GRAY);
-    body.setPosition({r * cosf(phi), 0, r * sinf(phi)});
-    body.setVelocity({-v * sinf(phi), vy, v * cosf(phi)});
 }
 
 // Make an orbital simulation
 void OrbitalSim::makeOrbitalSim(float timeStep)
 {
-    printf("planetas\n");
     for(size_t i=0 ; i<SOLARSYSTEM_BODYNUM ; ++i)
     {
         bodies[i].setName(solarSystem[i].name);
@@ -169,7 +147,6 @@ void OrbitalSim::makeOrbitalSim(float timeStep)
         bodies[i].setVelocity(solarSystem[i].velocity);
         printf("%f, %f, %f\n",bodies[i].getPosition().x,bodies[i].getPosition().y,bodies[i].getPosition().z);
     }
-    printf("asteroides\n");
     for(size_t j=SOLARSYSTEM_BODYNUM ; j<numberOfBodies ; ++j)
     {
         placeAsteroid(bodies[j], bodies[0].getMass());
