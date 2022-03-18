@@ -36,13 +36,16 @@ int main()
     float timeMultiplier = 10 * SECONDS_PER_DAY; // Simulation speed: 100 days per real second
     float timeStep = timeMultiplier / fps;
 
-    OrbitalSim *sim = makeOrbitalSim(timeStep);
+    OrbitalSim sim(timeStep);
+    sim.makeOrbitalSim(timeStep);
+
+    OrbitalView view; 
 
     // Game loop
     while (!WindowShouldClose())
     {
         // Update simulation
-        updateOrbitalSim(sim);
+        sim.updateOrbitalSim();
 
         // Camera
         UpdateCamera(&camera);
@@ -52,17 +55,15 @@ int main()
         ClearBackground(BLACK);
 
         BeginMode3D(camera);
-        renderOrbitalSim3D(sim);
+        view.renderOrbitalSim3D(&sim);
         DrawGrid(10, 10.0f);
         EndMode3D();
 
-        renderOrbitalSim2D(sim);
+        view.renderOrbitalSim2D(&sim);
         EndDrawing();
     }
 
     CloseWindow();
-
-    freeOrbitalSim(sim);
-
+   
     return 0;
 }

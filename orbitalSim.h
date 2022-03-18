@@ -22,13 +22,24 @@
 class OrbitalBody
 {
 public:
-    OrbitalBody();
-    ~OrbitalBody();   
     
     void setName(std::string name);
 
+    void setMass(float mass);
+    float getMass();
+    void setRadius(float radius);
+    float getRadius();
+    void setColor(Color color);
+    Color getColor();
+    void setPosition(Vector3 position);
+    Vector3 getPosition();
+    void setVelocity(Vector3 velocity);
+    Vector3 getVelocity();
+    void setAcceleration(Vector3 acceleration);
+    Vector3 getAcceleration();
+
 private:
-    const char *name; // Name
+    std::string name; // Name
     float mass;		  // [kg]
     float radius;	  // [m]
     Color color;	  // raylib color
@@ -36,19 +47,23 @@ private:
     Vector3 velocity; // [m/s]
     Vector3 acceleration;
 
-
 };
 
 class OrbitalSim
 {
 public:
-    OrbitalSim(float timeStep, int numBodies);
+    OrbitalSim(float timeStep);
     ~OrbitalSim();
 
-    OrbitalSim *makeOrbitalSim(float timeStep);
-    void updateOrbitalSim(OrbitalSim *sim);
+    void makeOrbitalSim(float timeStep);
+    void updateOrbitalSim();
+    void renderOrbitalSim3D();
+    void renderOrbitalSim2D();
+    int getNumberOfBodies();
+    float getTimeElapsed();
 
     OrbitalBody* bodies;
+
 private:
     float getRandomFloat(float min, float max);
     void placeAsteroid(OrbitalBody body, float centerMass);
@@ -56,9 +71,8 @@ private:
     float timeStep;
     float timeElapsed;
     int numberOfBodies;
+
 };
-
-
 
 
 #endif

@@ -11,7 +11,7 @@
 
 #define SCALE pow(10,-11)
 
-const char* getISODate(float currentTime) {
+const char* OrbitalView::getISODate(float currentTime) {
     // Epoch: 2022-01-01
     struct tm epoch_tm = { 0, 0, 0, 1, 0, 122 };
     time_t epoch = mktime(&epoch_tm);
@@ -24,23 +24,23 @@ const char* getISODate(float currentTime) {
     return TextFormat("Date: %04d-%02d-%02d", 1900 + local_tm->tm_year, local_tm->tm_mon + 1, local_tm->tm_mday);
 }
 
-void renderOrbitalSim3D(OrbitalSim *sim)
+void OrbitalView::renderOrbitalSim3D(OrbitalSim *sim)
 {
-    for(size_t i=0 ; i<(sim->numberOfBodies-N_ASTEROID) ; ++i)
+    for(size_t i=0 ; i<(sim->getNumberOfBodies()-N_ASTEROID) ; ++i)
     {
-        Vector3 scaledPos=Vector3Scale(sim->bodies[i].position, SCALE);
-        DrawSphere(scaledPos, 0.005F*logf(sim->bodies[i].radius), sim->bodies[i].color);
-        DrawPoint3D(scaledPos, sim->bodies[i].color);
+        Vector3 scaledPos=Vector3Scale(sim->bodies[i].getPosition(), SCALE);
+        DrawSphere(scaledPos, 0.005F*logf(sim->bodies[i].getRadius()), sim->bodies[i].getColor());
+        DrawPoint3D(scaledPos, sim->bodies[i].getColor());
     }
-    for (size_t x=(sim->numberOfBodies-N_ASTEROID) ; x<(sim->numberOfBodies) ; ++x)
+    for (size_t x=(sim->getNumberOfBodies()-N_ASTEROID) ; x<(sim->getNumberOfBodies()) ; ++x)
     {
-        Vector3 scaledPos=Vector3Scale(sim->bodies[x].position, SCALE);
-        DrawPoint3D(scaledPos, sim->bodies[x].color);
+        Vector3 scaledPos=Vector3Scale(sim->bodies[x].getPosition(), SCALE);
+        DrawPoint3D(scaledPos, sim->bodies[x].getColor());
     }
 }
 
-void renderOrbitalSim2D(OrbitalSim *sim)
+void OrbitalView::renderOrbitalSim2D(OrbitalSim *sim)
 {
     DrawFPS(5,0);
-    DrawText(getISODate(sim->timeElapsed), 5, 25, 20, WHITE); 
+    DrawText(getISODate(sim->getTimeElapsed()), 5, 25, 20, WHITE); 
 }

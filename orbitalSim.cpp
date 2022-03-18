@@ -27,6 +27,7 @@
 #define ASTEROIDS_MEAN_RADIUS 4E11F
 #define ASTEROIDS_MEAN_WEIGHT 0X3B9ACA00
 
+
 OrbitalSim::OrbitalSim(float timeStep)
 {
     this->timeStep=timeStep;
@@ -34,9 +35,59 @@ OrbitalSim::OrbitalSim(float timeStep)
     numberOfBodies=SOLARSYSTEM_BODYNUM+N_ASTEROID;
 
     bodies = new OrbitalBody[SOLARSYSTEM_BODYNUM+N_ASTEROID]; 
+}
 
+void OrbitalBody::setName(std::string name)
+{
+    this->name=name;
+}
 
-
+void OrbitalBody::setMass(float mass)
+{
+    this->mass = mass;
+}
+    float OrbitalBody::getMass()   {
+    return mass;
+}
+void OrbitalBody::setRadius(float radius)
+{
+    this->radius = radius;
+}
+float OrbitalBody::getRadius()
+{
+    return radius;
+}
+void OrbitalBody::setColor(Color color)
+{
+    this->color = color;
+}
+Color OrbitalBody::getColor()
+{
+    return color;
+}
+void OrbitalBody::setPosition(Vector3 position)
+{
+    this->position = position;
+}
+Vector3 OrbitalBody::getPosition()
+{
+    return position;
+}
+void OrbitalBody::setVelocity(Vector3 velocity)
+{
+    this->velocity = velocity;
+}
+Vector3 OrbitalBody::getVelocity()
+{
+    return velocity;
+}
+void OrbitalBody::setAcceleration(Vector3 acceleration)
+{
+    this->acceleration = acceleration;
+}
+Vector3 OrbitalBody::getAcceleration()
+{
+    return acceleration;
 }
 
 // Gets a random value between min and max
@@ -45,11 +96,42 @@ float OrbitalSim::getRandomFloat(float min, float max)
     return min + (max - min) * rand() / (float)RAND_MAX;
 }
 
+int OrbitalSim::getNumberOfBodies()
+{
+    return numberOfBodies;
+}
+
+float OrbitalSim::getTimeElapsed()
+{
+    return timeElapsed;
+}
 // Places an asteroid
 //
 // centerMass: mass of the most massive object in the star system
 void OrbitalSim::placeAsteroid(OrbitalBody body, float centerMass)
 {
+    /*// Logit distribution
+    float x = getRandomFloat(0, 1);
+    float l = logf(x) - logf(1 - x) + 1;
+
+    // https://mathworld.wolfram.com/DiskPointPicking.html
+    float r = ASTEROIDS_MEAN_RADIUS * sqrtf(fabs(l));
+    float phi = getRandomFloat(0, 2 * M_PI);
+
+    // Surprise!
+    phi = 0;
+
+    // https://en.wikipedia.org/wiki/Circular_orbit#Velocity
+    float v = sqrtf(GRAVITATIONAL_CONSTANT * centerMass / r) * getRandomFloat(0.6F, 1.2F);
+    float vy = getRandomFloat(-1E2F, 1E2F);
+
+    // Fill in with your own fields:
+    body.setMass(ASTEROIDS_MEAN_WEIGHT);  // Typical asteroid weight: 1 billion tons
+    body.setRadius(ASTEROIDS_MEAN_RADIUS); // Typical asteroid radius: 2km
+    body.setColor(GRAY);
+    body.setPosition ({r * cosf(phi), 0, r * sinf(phi)});
+    body.setVelocity ({-v * sinf(phi), vy, v * cosf(phi)});*/
+
     // Logit distribution
     float x = getRandomFloat(0, 1);
     float l = logf(x) - logf(1 - x) + 1;
@@ -66,44 +148,38 @@ void OrbitalSim::placeAsteroid(OrbitalBody body, float centerMass)
     float vy = getRandomFloat(-1E2F, 1E2F);
 
     // Fill in with your own fields:
-    body.mass = ASTEROIDS_MEAN_WEIGHT;  // Typical asteroid weight: 1 billion tons
-    body.radius = ASTEROIDS_MEAN_RADIUS; // Typical asteroid radius: 2km
-    body.color = GRAY;
-    body.position = {r * cosf(phi), 0, r * sinf(phi)};
-    body.velocity = {-v * sinf(phi), vy, v * cosf(phi)};
-
+    body.setMass(1E12F);  // Typical asteroid weight: 1 billion tons
+    body.setRadius(2E3F); // Typical asteroid radius: 2km
+    body.setColor(GRAY);
+    body.setPosition({r * cosf(phi), 0, r * sinf(phi)});
+    body.setVelocity({-v * sinf(phi), vy, v * cosf(phi)});
 }
 
 // Make an orbital simulation
-OrbitalSim* OrbitalSim::makeOrbitalSim(float timeStep)
+void OrbitalSim::makeOrbitalSim(float timeStep)
 {
-
+    printf("planetas\n");
     for(size_t i=0 ; i<SOLARSYSTEM_BODYNUM ; ++i)
     {
-        bodies[i].setName()
-
-        setName()
-        {
-            
-        }
-        
-        solarSystem[i].name;
-        bodies[i].mass=solarSystem[i].mass;
-        bodies[i].radius=solarSystem[i].radius;
-        bodies[i].color=solarSystem[i].color;
-        bodies[i].position=solarSystem[i].position;
-        bodies[i].velocity=solarSystem[i].velocity;
+        bodies[i].setName(solarSystem[i].name);
+        bodies[i].setMass(solarSystem[i].mass);
+        bodies[i].setRadius(solarSystem[i].radius);
+        bodies[i].setColor(solarSystem[i].color);
+        bodies[i].setPosition(solarSystem[i].position);
+        bodies[i].setVelocity(solarSystem[i].velocity);
+        printf("%f, %f, %f\n",bodies[i].getPosition().x,bodies[i].getPosition().y,bodies[i].getPosition().z);
     }
+    printf("asteroides\n");
     for(size_t j=SOLARSYSTEM_BODYNUM ; j<numberOfBodies ; ++j)
     {
-        this->placeAsteroid(bodies[j], bodies[0].mass);
+        placeAsteroid(bodies[j], bodies[0].getMass());
+        printf("%f, %f, %f\n",bodies[j].getPosition().x,bodies[j].getPosition().y,bodies[j].getPosition().z);
     }
 
-    return sim;
 }
 
 // Simulates a timestep
-void OrbitalSim::updateOrbitalSim(OrbitalSim *sim)
+void OrbitalSim::updateOrbitalSim()
 {
     // Calculation of force and acceleration
     for(size_t i=0 ; i<(SOLARSYSTEM_BODYNUM+N_ASTEROID) ; ++i)
@@ -117,29 +193,30 @@ void OrbitalSim::updateOrbitalSim(OrbitalSim *sim)
         {
             if(i!=j) 
             {
-                Vector3 unitVector=Vector3Subtract( sim->bodies[i].position ,sim->bodies[j].position);
+                Vector3 unitVector=Vector3Subtract(this->bodies[i].getPosition(),this->bodies[j].getPosition());
                 float vectorMod = Vector3Length(unitVector);
                 unitVector=Vector3Scale(unitVector,1/vectorMod);
 
                 Vector3 force=Vector3Scale(unitVector,
-                              -GRAVITATIONAL_CONSTANT*(sim->bodies[i].mass)*(sim->bodies[j].mass)/(vectorMod*vectorMod));
+                              -GRAVITATIONAL_CONSTANT*(this->bodies[i].getMass())*(this->bodies[j].getMass())/(vectorMod*vectorMod));
                 resultantForce=Vector3Add(resultantForce,force);
             }
         }
 
         Vector3 acceleration;
-        acceleration=Vector3Scale(resultantForce, 1/(sim->bodies[i].mass));
+        acceleration=Vector3Scale(resultantForce, 1/(this->bodies[i].getMass()));
 
-        sim->bodies[i].velocity= Vector3Add(sim->bodies[i].velocity, 
-                                 Vector3Scale(acceleration,(sim->timeStep)));
-        sim->bodies[i].position= Vector3Add(sim->bodies[i].position, 
-                                 Vector3Scale((sim->bodies[i].velocity),(sim->timeStep)));
+        this->bodies[i].setVelocity(Vector3Add(this->bodies[i].getVelocity(), 
+                                 Vector3Scale(acceleration,(this->timeStep))));
+        this->bodies[i].setPosition(Vector3Add(this->bodies[i].getPosition(), 
+                                 Vector3Scale((this->bodies[i].getVelocity()),(this->timeStep))));
     }
 
-    (sim->timeElapsed)+=(sim->timeStep);    // Time update
+    (this->timeElapsed)+=(this->timeStep);    // Time update
 }
 
-void freeOrbitalSim(OrbitalSim *sim)
+
+OrbitalSim::~OrbitalSim()
 {
-    delete sim; 
+    delete[] bodies;
 }
