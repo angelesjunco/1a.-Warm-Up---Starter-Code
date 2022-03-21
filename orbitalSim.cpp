@@ -20,7 +20,7 @@
  * 
  */
 
-#include "orbitalSim.h"
+#include "orbitalSim.hpp"
 #include "ephemerides.h"
 
 #define GRAVITATIONAL_CONSTANT 6.6743*(pow(10,-11))
@@ -108,7 +108,7 @@ float OrbitalSim::getTimeElapsed()
 // Places an asteroid
 //
 // centerMass: mass of the most massive object in the star system
-void OrbitalSim::placeAsteroid(OrbitalBody body, float centerMass)
+void OrbitalSim::placeAsteroid(OrbitalBody *body, float centerMass)
 {
     // Logit distribution
     float x = getRandomFloat(0, 1);
@@ -119,18 +119,18 @@ void OrbitalSim::placeAsteroid(OrbitalBody body, float centerMass)
     float phi = getRandomFloat(0, 2 * M_PI);
 
     // Surprise!
-    phi = 0;
+    //phi = 0;
 
     // https://en.wikipedia.org/wiki/Circular_orbit#Velocity
     float v = sqrtf(GRAVITATIONAL_CONSTANT * centerMass / r) * getRandomFloat(0.6F, 1.2F);
     float vy = getRandomFloat(-1E2F, 1E2F);
 
     // Fill in with your own fields:
-    body.setMass(ASTEROIDS_MEAN_WEIGHT);  // Typical asteroid weight: 1 billion tons
-    body.setRadius(ASTEROIDS_MEAN_RADIUS); // Typical asteroid radius: 2km
-    body.setColor(GRAY);
-    body.setPosition ({r * cosf(phi), 0, r * sinf(phi)});
-    body.setVelocity ({-v * sinf(phi), vy, v * cosf(phi)});
+    body->setMass(ASTEROIDS_MEAN_WEIGHT);  // Typical asteroid weight: 1 billion tons
+    body->setRadius(ASTEROIDS_MEAN_RADIUS); // Typical asteroid radius: 2km
+    body->setColor(GRAY);
+    body->setPosition ({r * cosf(phi), 0, r * sinf(phi)});
+    body->setVelocity ({-v * sinf(phi), vy, v * cosf(phi)});
 
 }
 
@@ -145,12 +145,10 @@ void OrbitalSim::makeOrbitalSim(float timeStep)
         bodies[i].setColor(solarSystem[i].color);
         bodies[i].setPosition(solarSystem[i].position);
         bodies[i].setVelocity(solarSystem[i].velocity);
-        printf("%f, %f, %f\n",bodies[i].getPosition().x,bodies[i].getPosition().y,bodies[i].getPosition().z);
     }
     for(size_t j=SOLARSYSTEM_BODYNUM ; j<numberOfBodies ; ++j)
     {
-        placeAsteroid(bodies[j], bodies[0].getMass());
-        printf("%f, %f, %f\n",bodies[j].getPosition().x,bodies[j].getPosition().y,bodies[j].getPosition().z);
+        placeAsteroid(&bodies[j], bodies[0].getMass());
     }
 
 }

@@ -7,7 +7,7 @@
 
 #include <time.h>
 
-#include "orbitalSimView.h"
+#include "orbitalSimView.hpp"
 
 #define SCALE pow(10,-11)
 

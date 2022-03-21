@@ -8,8 +8,8 @@
  * 
  */
 
-#include "orbitalSim.h"
-#include "orbitalSimView.h"
+#include "orbitalSim.hpp"
+#include "orbitalSimView.hpp"
 
 #define SECONDS_PER_DAY 86400.0F
 

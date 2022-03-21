@@ -22,7 +22,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     add_link_options(-fsanitize=address)
 endif()
 
-
 # Main executable
 add_executable(orbitalsim main.cpp orbitalSim.cpp orbitalSimView.cpp)
 
@@ -35,7 +34,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(orbitalsim PRIVATE raylib "-framework IOKit" "-framework Cocoa" "-framework OpenGL")
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(orbitalsim PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
+    target_link_libraries(orbitalsim PRIVATE raylib raylib_cpp m ${CMAKE_DL_LIBS} pthread GL rt X11)
 endif()
 
 
@@ -53,5 +52,5 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(orbitalsim_test PRIVATE raylib "-framework IOKit" "-framework Cocoa" "-framework OpenGL")
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(orbitalsim_test PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
+    target_link_libraries(orbitalsim_test PRIVATE raylib raylib_cpp m ${CMAKE_DL_LIBS} pthread GL rt X11)
 endif()

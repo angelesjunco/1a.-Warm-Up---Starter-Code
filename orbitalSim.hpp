@@ -67,7 +67,7 @@ public:
 
 private:
     float getRandomFloat(float min, float max);
-    void placeAsteroid(OrbitalBody body, float centerMass);
+    void placeAsteroid(OrbitalBody* body, float centerMass);
 
     float timeStep;
     float timeElapsed;

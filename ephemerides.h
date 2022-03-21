@@ -14,8 +14,8 @@ struct EphemeridesBody
     float mass;		  // [kg]
     float radius;	  // [m]
     Color color;	  // raylib color
-    Vector3 position; // [m]
-    Vector3 velocity; // [m/s]
+    raylib::Vector3 position; // [m]
+    raylib::Vector3 velocity; // [m/s]
 };
 
 // Solar system ephemerides for 2022-01-01T00:00:00Z
