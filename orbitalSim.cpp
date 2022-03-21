@@ -4,7 +4,7 @@
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  * 
- * GRUPO 3 
+ * GRUPO 3 - LEVEL 1
  * Santiago Feldman 
  * Angeles Junco
  * 
@@ -35,59 +35,6 @@ OrbitalSim::OrbitalSim(float timeStep)
     numberOfBodies=SOLARSYSTEM_BODYNUM+N_ASTEROID;
 
     bodies = new OrbitalBody[SOLARSYSTEM_BODYNUM+N_ASTEROID]; 
-}
-
-void OrbitalBody::setName(std::string name)
-{
-    this->name=name;
-}
-
-void OrbitalBody::setMass(float mass)
-{
-    this->mass = mass;
-}
-    float OrbitalBody::getMass()   {
-    return mass;
-}
-void OrbitalBody::setRadius(float radius)
-{
-    this->radius = radius;
-}
-float OrbitalBody::getRadius()
-{
-    return radius;
-}
-void OrbitalBody::setColor(Color color)
-{
-    this->color = color;
-}
-Color OrbitalBody::getColor()
-{
-    return color;
-}
-void OrbitalBody::setPosition(raylib::Vector3 position)
-{
-    this->position = position;
-}
-raylib::Vector3 OrbitalBody::getPosition()
-{
-    return position;
-}
-void OrbitalBody::setVelocity(raylib::Vector3 velocity)
-{
-    this->velocity = velocity;
-}
-raylib::Vector3 OrbitalBody::getVelocity()
-{
-    return velocity;
-}
-void OrbitalBody::setAcceleration(raylib::Vector3 acceleration)
-{
-    this->acceleration = acceleration;
-}
-raylib::Vector3 OrbitalBody::getAcceleration()
-{
-    return acceleration;
 }
 
 // Gets a random value between min and max
@@ -190,6 +137,70 @@ void OrbitalSim::updateOrbitalSim()
     (this->timeElapsed)+=(this->timeStep);    // Time update
 }
 
+void OrbitalBody::setName(std::string name)
+{
+    this->name=name;
+}
+
+void OrbitalBody::setMass(float mass)
+{
+    this->mass = mass;
+}
+
+float OrbitalBody::getMass()   
+{
+    return mass;
+}
+
+void OrbitalBody::setRadius(float radius)
+{
+    this->radius = radius;
+}
+
+float OrbitalBody::getRadius()
+{
+    return radius;
+}
+
+void OrbitalBody::setColor(Color color)
+{
+    this->color = color;
+}
+
+Color OrbitalBody::getColor()
+{
+    return color;
+}
+
+void OrbitalBody::setPosition(raylib::Vector3 position)
+{
+    this->position = position;
+}
+
+raylib::Vector3 OrbitalBody::getPosition()
+{
+    return position;
+}
+
+void OrbitalBody::setVelocity(raylib::Vector3 velocity)
+{
+    this->velocity = velocity;
+}
+
+raylib::Vector3 OrbitalBody::getVelocity()
+{
+    return velocity;
+}
+
+void OrbitalBody::setAcceleration(raylib::Vector3 acceleration)
+{
+    this->acceleration = acceleration;
+}
+
+raylib::Vector3 OrbitalBody::getAcceleration()
+{
+    return acceleration;
+}
 
 OrbitalSim::~OrbitalSim()
 {

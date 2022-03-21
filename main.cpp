@@ -6,7 +6,13 @@
  *
  * Main module
  * 
+ * GRUPO 3 - LEVEL 1
+ * Santiago Feldman 
+ * Angeles Junco
+ * 
+ * 
  */
+ 
 
 #include "orbitalSim.hpp"
 #include "orbitalSimView.hpp"
