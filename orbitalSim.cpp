@@ -4,7 +4,7 @@
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  * 
- * GRUPO 3 
+ * GRUPO 3 - LEVEL 1
  * Santiago Feldman 
  * Angeles Junco
  * 
@@ -17,6 +17,7 @@
  * 
  * 3. La complejidad algorítmica de la simulación es O(n^2) debido a los "for" anidados de las líneas 106 y 113 (en este archivo),
  * que son la "estructura" más compleja del programa.
+ * 
  * 
  */
 
