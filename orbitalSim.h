@@ -14,7 +14,8 @@
 #include <math.h>          /* M_PI */
 #include <string>
 
-#include "raylib.h"
+#include "raylib-cpp.hpp"
+#include "Vector3.hpp"
 #include "raymath.h"
 
 #define N_ASTEROID 1000
@@ -31,21 +32,21 @@ public:
     float getRadius();
     void setColor(Color color);
     Color getColor();
-    void setPosition(Vector3 position);
-    Vector3 getPosition();
-    void setVelocity(Vector3 velocity);
-    Vector3 getVelocity();
-    void setAcceleration(Vector3 acceleration);
-    Vector3 getAcceleration();
+    void setPosition(raylib::Vector3 position);
+    raylib::Vector3 getPosition();
+    void setVelocity(raylib::Vector3 velocity);
+    raylib::Vector3 getVelocity();
+    void setAcceleration(raylib::Vector3 acceleration);
+    raylib::Vector3 getAcceleration();
 
 private:
     std::string name; // Name
     float mass;		  // [kg]
     float radius;	  // [m]
     Color color;	  // raylib color
-    Vector3 position; // [m]
-    Vector3 velocity; // [m/s]
-    Vector3 acceleration;
+    raylib::Vector3 position; // [m]
+    raylib::Vector3 velocity; // [m/s]
+    raylib::Vector3 acceleration;
 
 };
 

@@ -28,13 +28,13 @@ void OrbitalView::renderOrbitalSim3D(OrbitalSim *sim)
 {
     for(size_t i=0 ; i<(sim->getNumberOfBodies()-N_ASTEROID) ; ++i)
     {
-        Vector3 scaledPos=Vector3Scale(sim->bodies[i].getPosition(), SCALE);
+        raylib::Vector3 scaledPos=Vector3Scale(sim->bodies[i].getPosition(), SCALE);
         DrawSphere(scaledPos, 0.005F*logf(sim->bodies[i].getRadius()), sim->bodies[i].getColor());
         DrawPoint3D(scaledPos, sim->bodies[i].getColor());
     }
     for (size_t x=(sim->getNumberOfBodies()-N_ASTEROID) ; x<(sim->getNumberOfBodies()) ; ++x)
     {
-        Vector3 scaledPos=Vector3Scale(sim->bodies[x].getPosition(), SCALE);
+        raylib::Vector3 scaledPos=Vector3Scale(sim->bodies[x].getPosition(), SCALE);
         DrawPoint3D(scaledPos, sim->bodies[x].getColor());
     }
 }

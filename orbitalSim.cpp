@@ -65,27 +65,27 @@ Color OrbitalBody::getColor()
 {
     return color;
 }
-void OrbitalBody::setPosition(Vector3 position)
+void OrbitalBody::setPosition(raylib::Vector3 position)
 {
     this->position = position;
 }
-Vector3 OrbitalBody::getPosition()
+raylib::Vector3 OrbitalBody::getPosition()
 {
     return position;
 }
-void OrbitalBody::setVelocity(Vector3 velocity)
+void OrbitalBody::setVelocity(raylib::Vector3 velocity)
 {
     this->velocity = velocity;
 }
-Vector3 OrbitalBody::getVelocity()
+raylib::Vector3 OrbitalBody::getVelocity()
 {
     return velocity;
 }
-void OrbitalBody::setAcceleration(Vector3 acceleration)
+void OrbitalBody::setAcceleration(raylib::Vector3 acceleration)
 {
     this->acceleration = acceleration;
 }
-Vector3 OrbitalBody::getAcceleration()
+raylib::Vector3 OrbitalBody::getAcceleration()
 {
     return acceleration;
 }
@@ -161,7 +161,7 @@ void OrbitalSim::updateOrbitalSim()
     // Calculation of force and acceleration
     for(size_t i=0 ; i<(SOLARSYSTEM_BODYNUM+N_ASTEROID) ; ++i)
     {
-        Vector3 resultantForce;
+        raylib::Vector3 resultantForce;
         resultantForce.x=0;
         resultantForce.y=0;
         resultantForce.z=0;
@@ -170,17 +170,17 @@ void OrbitalSim::updateOrbitalSim()
         {
             if(i!=j) 
             {
-                Vector3 unitVector=Vector3Subtract(this->bodies[i].getPosition(),this->bodies[j].getPosition());
+                raylib::Vector3 unitVector=Vector3Subtract(this->bodies[i].getPosition(),this->bodies[j].getPosition());
                 float vectorMod = Vector3Length(unitVector);
                 unitVector=Vector3Scale(unitVector,1/vectorMod);
 
-                Vector3 force=Vector3Scale(unitVector,
+                raylib::Vector3 force=Vector3Scale(unitVector,
                               -GRAVITATIONAL_CONSTANT*(this->bodies[i].getMass())*(this->bodies[j].getMass())/(vectorMod*vectorMod));
                 resultantForce=Vector3Add(resultantForce,force);
             }
         }
 
-        Vector3 acceleration;
+        raylib::Vector3 acceleration;
         acceleration=Vector3Scale(resultantForce, 1/(this->bodies[i].getMass()));
 
         this->bodies[i].setVelocity(Vector3Add(this->bodies[i].getVelocity(), 
