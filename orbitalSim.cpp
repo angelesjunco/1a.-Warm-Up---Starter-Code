@@ -4,7 +4,9 @@
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  * 
- * GRUPO 3 
+ * orbitalSim.cpp
+ * 
+ * GRUPO 3 - LEVEL 1.A
  * Santiago Feldman 
  * Angeles Junco
  * 
@@ -17,6 +19,10 @@
  * 
  * 3. La complejidad algorítmica de la simulación es O(n^2) debido a los "for" anidados de las líneas 106 y 113 (en este archivo),
  * que son la "estructura" más compleja del programa.
+ * 
+ * 4. Los cambios que se realizaron para poder simular sin problemas 1000 asteroides fue representar gráficamente a los 
+ * asteroides como puntos y no como esferas, ya que graficarlos como esferas requería mucho más cálculo y se obtenía un resultado
+ * muy similar al que se obtiene graficándolos como puntos (que es mucho más eficiente). 
  * 
  */
 
@@ -118,24 +124,23 @@ void updateOrbitalSim(OrbitalSim *sim)
                 float vectorMod = Vector3Length(unitVector);
                 unitVector=Vector3Scale(unitVector,1/vectorMod);
 
-                Vector3 force=Vector3Scale(unitVector,
-                              -GRAVITATIONAL_CONSTANT*(sim->bodies[i].mass)*(sim->bodies[j].mass)/(vectorMod*vectorMod));
+                Vector3 force=Vector3Scale(unitVector,-GRAVITATIONAL_CONSTANT*(sim->bodies[j].mass)/(vectorMod*vectorMod));
                 resultantForce=Vector3Add(resultantForce,force);
             }
         }
 
         Vector3 acceleration;
-        acceleration=Vector3Scale(resultantForce, 1/(sim->bodies[i].mass));
+        acceleration=resultantForce; // Se evita dividir por la masa ya que se simplifica en la sumatoria de fuerzas.
+                                     // No incluir la masa en las líneas 127 y 133 evita cálculos inútiles.
 
-        sim->bodies[i].velocity= Vector3Add(sim->bodies[i].velocity, 
-                                 Vector3Scale(acceleration,(sim->timeStep)));
-        sim->bodies[i].position= Vector3Add(sim->bodies[i].position, 
-                                 Vector3Scale((sim->bodies[i].velocity),(sim->timeStep)));
+        sim->bodies[i].velocity= Vector3Add(sim->bodies[i].velocity,Vector3Scale(acceleration,(sim->timeStep)));
+        sim->bodies[i].position= Vector3Add(sim->bodies[i].position, Vector3Scale((sim->bodies[i].velocity),(sim->timeStep)));
     }
 
     (sim->timeElapsed)+=(sim->timeStep);    // Time update
 }
 
+// Frees the memory used for the simulation
 void freeOrbitalSim(OrbitalSim *sim)
 {
     free(sim->bodies);

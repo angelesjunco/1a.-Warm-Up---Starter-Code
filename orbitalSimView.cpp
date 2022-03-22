@@ -1,8 +1,15 @@
 /*
- * Orbital simulation view
+ * Orbital simulation
  *
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
+ * 
+ * orbitalSim.cpp
+ * 
+ * GRUPO 3 - LEVEL 1.A
+ * Santiago Feldman 
+ * Angeles Junco
+ * 
  */
 
 #include <time.h>
@@ -24,6 +31,7 @@ const char* getISODate(float currentTime) {
     return TextFormat("Date: %04d-%02d-%02d", 1900 + local_tm->tm_year, local_tm->tm_mon + 1, local_tm->tm_mday);
 }
 
+// Renders the orbital simulation on screen
 void renderOrbitalSim3D(OrbitalSim *sim)
 {
     for(size_t i=0 ; i<(sim->numberOfBodies-N_ASTEROID) ; ++i)
@@ -39,6 +47,7 @@ void renderOrbitalSim3D(OrbitalSim *sim)
     }
 }
 
+// Shows the FPS counter and date on screen
 void renderOrbitalSim2D(OrbitalSim *sim)
 {
     DrawFPS(5,0);
