@@ -4,12 +4,18 @@
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  * 
+<<<<<<< HEAD
  * orbitalSim.cpp
  * 
  * GRUPO 3 - LEVEL 1.A
  * Santiago Feldman 
  * Angeles Junco
  * 
+=======
+ * GRUPO 3 - LEVEL 1
+ * Santiago Feldman 
+ * Angeles Junco
+>>>>>>> 3e15b64a26cd0c2a02f83eb7a9812468784d25b2
  */
 
 #include <time.h>
