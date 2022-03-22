@@ -3,10 +3,13 @@
  *
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
- *  
- * GRUPO 3 - LEVEL 1
+ * 
+ * orbitalSim.hpp
+ * 
+ * GRUPO 3 - LEVEL 1.B
  * Santiago Feldman 
  * Angeles Junco
+ * 
  */
 
 #ifndef ORBITALSIM_H
@@ -60,7 +63,6 @@ public:
     OrbitalSim(float timeStep);
     ~OrbitalSim();
 
-    void makeOrbitalSim(float timeStep);
     void updateOrbitalSim();
     void renderOrbitalSim3D();
     void renderOrbitalSim2D();

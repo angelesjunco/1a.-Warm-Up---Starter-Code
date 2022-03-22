@@ -1,12 +1,15 @@
 /*
- * Orbital simulation view
+ * Orbital simulation
  *
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  * 
- * GRUPO 3 - LEVEL 1
+ * orbitalSimView.cpp
+ * 
+ * GRUPO 3 - LEVEL 1.B
  * Santiago Feldman 
  * Angeles Junco
+ * 
  */
 
 #include <time.h>

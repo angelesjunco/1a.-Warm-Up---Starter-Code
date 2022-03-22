@@ -4,19 +4,11 @@
  * 22.08 EDA
  * Copyright (C) 2022 Marc S. Ressl
  * 
- * GRUPO 3 - LEVEL 1
+ * orbitalSim.cpp
+ * 
+ * GRUPO 3 - LEVEL 1.B
  * Santiago Feldman 
  * Angeles Junco
- * 
- * PASOS SIGUIENTES
- * 
- * 1. Utilizamos float para representar las masas, velocidades, aceleraciones y distancias porque estas magnitudes físicas
- * toman valores continuos de los números reales. Float nos permite simular correctamente esa continuidad. Int, por ejemplo, 
- * hubiera tomado valores discretos para las magnitudes. Además utilizamos float y no double, que también permite simular
- * números reales, porque la precisión de float era la suficiente como para crear una simulación "convincente".
- * 
- * 3. La complejidad algorítmica de la simulación es O(n^2) debido a los "for" anidados de las líneas 106 y 113 (en este archivo),
- * que son la "estructura" más compleja del programa.
  * 
  */
 
@@ -27,7 +19,7 @@
 #define ASTEROIDS_MEAN_RADIUS 4E11F
 #define ASTEROIDS_MEAN_WEIGHT 0X3B9ACA00
 
-
+// Make an orbital simulation
 OrbitalSim::OrbitalSim(float timeStep)
 {
     this->timeStep=timeStep;
@@ -35,6 +27,21 @@ OrbitalSim::OrbitalSim(float timeStep)
     numberOfBodies=SOLARSYSTEM_BODYNUM+N_ASTEROID;
 
     bodies = new OrbitalBody[SOLARSYSTEM_BODYNUM+N_ASTEROID]; 
+
+    for(size_t i=0 ; i<SOLARSYSTEM_BODYNUM ; ++i)
+    {
+        bodies[i].setName(solarSystem[i].name);
+        bodies[i].setMass(solarSystem[i].mass);
+        bodies[i].setRadius(solarSystem[i].radius);
+        bodies[i].setColor(solarSystem[i].color);
+        bodies[i].setPosition(solarSystem[i].position);
+        bodies[i].setVelocity(solarSystem[i].velocity);
+    }
+    for(size_t j=SOLARSYSTEM_BODYNUM ; j<numberOfBodies ; ++j)
+    {
+        placeAsteroid(&bodies[j], bodies[0].getMass());
+    }
+
 }
 
 // Gets a random value between min and max
@@ -43,15 +50,6 @@ float OrbitalSim::getRandomFloat(float min, float max)
     return min + (max - min) * rand() / (float)RAND_MAX;
 }
 
-int OrbitalSim::getNumberOfBodies()
-{
-    return numberOfBodies;
-}
-
-float OrbitalSim::getTimeElapsed()
-{
-    return timeElapsed;
-}
 // Places an asteroid
 //
 // centerMass: mass of the most massive object in the star system
@@ -81,25 +79,6 @@ void OrbitalSim::placeAsteroid(OrbitalBody *body, float centerMass)
 
 }
 
-// Make an orbital simulation
-void OrbitalSim::makeOrbitalSim(float timeStep)
-{
-    for(size_t i=0 ; i<SOLARSYSTEM_BODYNUM ; ++i)
-    {
-        bodies[i].setName(solarSystem[i].name);
-        bodies[i].setMass(solarSystem[i].mass);
-        bodies[i].setRadius(solarSystem[i].radius);
-        bodies[i].setColor(solarSystem[i].color);
-        bodies[i].setPosition(solarSystem[i].position);
-        bodies[i].setVelocity(solarSystem[i].velocity);
-    }
-    for(size_t j=SOLARSYSTEM_BODYNUM ; j<numberOfBodies ; ++j)
-    {
-        placeAsteroid(&bodies[j], bodies[0].getMass());
-    }
-
-}
-
 // Simulates a timestep
 void OrbitalSim::updateOrbitalSim()
 {
@@ -115,94 +94,105 @@ void OrbitalSim::updateOrbitalSim()
         {
             if(i!=j) 
             {
-                raylib::Vector3 unitVector=Vector3Subtract(this->bodies[i].getPosition(),this->bodies[j].getPosition());
+                raylib::Vector3 unitVector = ( this->bodies[i].getPosition() ) - ( this->bodies[j].getPosition() );
                 float vectorMod = Vector3Length(unitVector);
-                unitVector=Vector3Scale(unitVector,1/vectorMod);
+                unitVector *= 1/Vector3Length(unitVector);
 
-                raylib::Vector3 force=Vector3Scale(unitVector,
-                              -GRAVITATIONAL_CONSTANT*(this->bodies[i].getMass())*(this->bodies[j].getMass())/(vectorMod*vectorMod));
-                resultantForce=Vector3Add(resultantForce,force);
+                resultantForce += (unitVector) * (-GRAVITATIONAL_CONSTANT *
+                                  (this->bodies[i].getMass())*(this->bodies[j].getMass())/(vectorMod*vectorMod));
             }
         }
 
         raylib::Vector3 acceleration;
-        acceleration=Vector3Scale(resultantForce, 1/(this->bodies[i].getMass()));
+        acceleration = resultantForce * (1/(this->bodies[i].getMass()));
 
-        this->bodies[i].setVelocity(Vector3Add(this->bodies[i].getVelocity(), 
-                                 Vector3Scale(acceleration,(this->timeStep))));
-        this->bodies[i].setPosition(Vector3Add(this->bodies[i].getPosition(), 
-                                 Vector3Scale((this->bodies[i].getVelocity()),(this->timeStep))));
+        this->bodies[i].setVelocity( this->bodies[i].getVelocity() + (acceleration * (this->timeStep)) );
+        this->bodies[i].setPosition( (this->bodies[i].getPosition()) + ((this->bodies[i].getVelocity())*(this->timeStep)) );
     }
 
     (this->timeElapsed)+=(this->timeStep);    // Time update
 }
 
+// Sets the name of an orbital body to a specified value
 void OrbitalBody::setName(std::string name)
 {
     this->name=name;
 }
 
+// Sets the mass of an orbital body to a specified value
 void OrbitalBody::setMass(float mass)
 {
     this->mass = mass;
 }
 
+// Gets the value of the mass of an orbital body
 float OrbitalBody::getMass()   
 {
     return mass;
 }
 
+// Sets the radius of an orbital body to a specified value
 void OrbitalBody::setRadius(float radius)
 {
     this->radius = radius;
 }
 
+// Gets the value of the radius of an orbital body
 float OrbitalBody::getRadius()
 {
     return radius;
 }
 
+// Sets the color of an orbital body
 void OrbitalBody::setColor(Color color)
 {
     this->color = color;
 }
 
+// Gets the color of an orbital body
 Color OrbitalBody::getColor()
 {
     return color;
 }
 
+// Sets the position of an orbital body to a specified value
 void OrbitalBody::setPosition(raylib::Vector3 position)
 {
     this->position = position;
 }
 
+// Gets the value of the position of an orbital body
 raylib::Vector3 OrbitalBody::getPosition()
 {
     return position;
 }
 
+// Sets the velocity of an orbital body to a specified value
 void OrbitalBody::setVelocity(raylib::Vector3 velocity)
 {
     this->velocity = velocity;
 }
 
+// Gets the value of the velocity of an orbital body
 raylib::Vector3 OrbitalBody::getVelocity()
 {
     return velocity;
 }
 
-void OrbitalBody::setAcceleration(raylib::Vector3 acceleration)
-{
-    this->acceleration = acceleration;
-}
-
-raylib::Vector3 OrbitalBody::getAcceleration()
-{
-    return acceleration;
-}
-
+// Delete the simulation
 OrbitalSim::~OrbitalSim()
 {
     delete[] bodies;
+}
+
+// Gets the number of bodies of an orbital simulation
+int OrbitalSim::getNumberOfBodies()
+{
+    return numberOfBodies;
+}
+
+// Gets the time elapsed since the beggining of an orbital simulation
+float OrbitalSim::getTimeElapsed()
+{
+    return timeElapsed;
 }

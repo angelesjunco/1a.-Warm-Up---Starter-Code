@@ -43,7 +43,6 @@ int main()
     float timeStep = timeMultiplier / fps;
 
     OrbitalSim sim(timeStep);
-    sim.makeOrbitalSim(timeStep);
 
     OrbitalView view; 
 
