@@ -31,21 +31,23 @@ const char* OrbitalView::getISODate(float currentTime) {
     return TextFormat("Date: %04d-%02d-%02d", 1900 + local_tm->tm_year, local_tm->tm_mon + 1, local_tm->tm_mday);
 }
 
+// Renders the orbital simulation on screen
 void OrbitalView::renderOrbitalSim3D(OrbitalSim *sim)
 {
     for(size_t i=0 ; i<(sim->getNumberOfBodies()-N_ASTEROID) ; ++i)
     {
-        raylib::Vector3 scaledPos=Vector3Scale(sim->bodies[i].getPosition(), SCALE);
+        raylib::Vector3 scaledPos= (sim->bodies[i].getPosition()) *  SCALE;
         DrawSphere(scaledPos, 0.005F*logf(sim->bodies[i].getRadius()), sim->bodies[i].getColor());
         DrawPoint3D(scaledPos, sim->bodies[i].getColor());
     }
     for (size_t x=(sim->getNumberOfBodies()-N_ASTEROID) ; x<(sim->getNumberOfBodies()) ; ++x)
     {
-        raylib::Vector3 scaledPos=Vector3Scale(sim->bodies[x].getPosition(), SCALE);
+        raylib::Vector3 scaledPos=(sim->bodies[x].getPosition()) * SCALE;
         DrawPoint3D(scaledPos, sim->bodies[x].getColor());
     }
 }
 
+// Renders the FPS counter and the date on screen
 void OrbitalView::renderOrbitalSim2D(OrbitalSim *sim)
 {
     DrawFPS(5,0);

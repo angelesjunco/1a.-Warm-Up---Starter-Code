@@ -179,12 +179,6 @@ raylib::Vector3 OrbitalBody::getVelocity()
     return velocity;
 }
 
-// Delete the simulation
-OrbitalSim::~OrbitalSim()
-{
-    delete[] bodies;
-}
-
 // Gets the number of bodies of an orbital simulation
 int OrbitalSim::getNumberOfBodies()
 {
@@ -195,4 +189,10 @@ int OrbitalSim::getNumberOfBodies()
 float OrbitalSim::getTimeElapsed()
 {
     return timeElapsed;
+}
+
+// Delete the simulation
+OrbitalSim::~OrbitalSim()
+{
+    delete[] bodies;
 }

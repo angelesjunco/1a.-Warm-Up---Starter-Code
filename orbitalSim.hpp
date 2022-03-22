@@ -43,8 +43,6 @@ public:
     raylib::Vector3 getPosition();
     void setVelocity(raylib::Vector3 velocity);
     raylib::Vector3 getVelocity();
-    void setAcceleration(raylib::Vector3 acceleration);
-    raylib::Vector3 getAcceleration();
 
 private:
     std::string name; // Name
