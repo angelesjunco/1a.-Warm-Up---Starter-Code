@@ -98,13 +98,11 @@ void OrbitalSim::updateOrbitalSim()
                 float vectorMod = Vector3Length(unitVector);
                 unitVector *= 1/Vector3Length(unitVector);
 
-                resultantForce += (unitVector) * (-GRAVITATIONAL_CONSTANT *
-                                  (this->bodies[i].getMass())*(this->bodies[j].getMass())/(vectorMod*vectorMod));
+                resultantForce += (unitVector) * (-GRAVITATIONAL_CONSTANT*(this->bodies[j].getMass())/(vectorMod*vectorMod));
             }
         }
 
-        raylib::Vector3 acceleration;
-        acceleration = resultantForce * (1/(this->bodies[i].getMass()));
+        raylib::Vector3 acceleration = resultantForce; //No se divide por la masa por la misma razón que en la parte A
 
         this->bodies[i].setVelocity( this->bodies[i].getVelocity() + (acceleration * (this->timeStep)) );
         this->bodies[i].setPosition( (this->bodies[i].getPosition()) + ((this->bodies[i].getVelocity())*(this->timeStep)) );

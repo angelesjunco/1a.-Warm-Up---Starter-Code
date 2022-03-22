@@ -6,7 +6,7 @@
  *
  * Main module
  * 
- * GRUPO 3 - LEVEL 1
+ * GRUPO 3 - LEVEL 1.B
  * Santiago Feldman 
  * Angeles Junco
  * 
